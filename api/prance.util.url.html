@@ -1,0 +1,247 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>prance.util.url &#8212; prance 0.12.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="prance.util.exceptions" href="prance.util.exceptions.html" />
+    <link rel="prev" title="prance.util.resolver" href="prance.util.resolver.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">prance.util.url</a><ul>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="prance.util.resolver.html" title="previous chapter">prance.util.resolver</a></li>
+      <li>Next: <a href="prance.util.exceptions.html" title="next chapter">prance.util.exceptions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prance-util-url">
+<h1>prance.util.url<a class="headerlink" href="#prance-util-url" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-prance.util.url"></span><p>This submodule contains code for fetching/parsing URLs.</p>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="prance.util.url.ResolutionError">
+<em class="property">exception </em><code class="descclassname">prance.util.url.</code><code class="descname">ResolutionError</code><a class="reference internal" href="../_modules/prance/util/url.html#ResolutionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.ResolutionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">LookupError</span></code></p>
+<dl class="method">
+<dt id="prance.util.url.ResolutionError.with_traceback">
+<code class="descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prance.util.url.ResolutionError.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="prance.util.url.absurl">
+<code class="descclassname">prance.util.url.</code><code class="descname">absurl</code><span class="sig-paren">(</span><em>url</em>, <em>relative_to=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/util/url.html#absurl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.absurl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turn relative file URLs into absolute file URLs.</p>
+<p>This is necessary, because while JSON pointers do not allow relative file
+URLs, Swagger/OpenAPI explicitly does. We need to make relative paths
+absolute before passing them off to jsonschema for verification.</p>
+<p>Non-file URLs are left untouched. URLs without scheme are assumed to be file
+URLs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>str/tuple</em>) – The input URL.</li>
+<li><strong>relative_to</strong> (<em>str/tuple</em>) – [optional] The URL to which the input URL is
+relative.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The output URL, parsed into components.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.util.url.fetch_url">
+<code class="descclassname">prance.util.url.</code><code class="descname">fetch_url</code><span class="sig-paren">(</span><em>url</em>, <em>cache={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/util/url.html#fetch_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.fetch_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the URL and parse the contents.</p>
+<p>Same as fetch_url_text(), but also parses the content and only
+returns the parse results.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>tuple</em>) – The url, parsed as returned by <cite>absurl</cite> above.</li>
+<li><strong>cache</strong> (<em>Mapping</em>) – An optional cache. If the URL can be found in the
+cache, return the cache contents.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The parsed file.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.util.url.fetch_url_text">
+<code class="descclassname">prance.util.url.</code><code class="descname">fetch_url_text</code><span class="sig-paren">(</span><em>url</em>, <em>cache={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/util/url.html#fetch_url_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.fetch_url_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch the URL.</p>
+<p>If the URL is a file URL, the format used for parsing depends on the file
+extension. Otherwise, YAML is assumed.</p>
+<p>The URL may also use the <cite>python</cite> scheme. In this scheme, the netloc part
+refers to an importable python package, and the path part to a path relative
+to the package path, e.g. <cite>python://some_package/path/to/file.yaml</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>tuple</em>) – The url, parsed as returned by <cite>absurl</cite> above.</li>
+<li><strong>cache</strong> (<em>Mapping</em>) – An optional cache. If the URL can be found in the
+cache, return the cache contents.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resource text of the URL, and the content type.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.util.url.split_url_reference">
+<code class="descclassname">prance.util.url.</code><code class="descname">split_url_reference</code><span class="sig-paren">(</span><em>base_url</em>, <em>reference</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/util/url.html#split_url_reference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.split_url_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a normalized, parsed URL and object path.</p>
+<p>The reference string is a JSON reference, i.e. a URL with a fragment that
+contains an object path into the referenced resource.</p>
+<p>The base URL is used as a reference point for relative references.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>base_url</strong> (<em>mixed</em>) – A parsed URL.</li>
+<li><strong>reference</strong> (<em>str</em>) – A JSON reference string.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The parsed absolute URL of the reference and the object path.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.util.url.urlresource">
+<code class="descclassname">prance.util.url.</code><code class="descname">urlresource</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/util/url.html#urlresource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.util.url.urlresource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the resource part of a parsed URL.</p>
+<p>The resource part is defined as the part without query, parameters or
+fragment. Just the scheme, netloc and path remains.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>url</strong> (<em>tuple</em>) – A parsed URL</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The resource part of the URL</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2016-2017, Jens Finkhaeuser.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/jfinkhaeuser/prance" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

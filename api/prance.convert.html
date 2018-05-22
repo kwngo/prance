@@ -1,0 +1,218 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>prance.convert &#8212; prance 0.12.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="prance.util.formats" href="prance.util.formats.html" />
+    <link rel="prev" title="prance.mixins" href="prance.mixins.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">prance.convert</a><ul>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="prance.mixins.html" title="previous chapter">prance.mixins</a></li>
+      <li>Next: <a href="prance.util.formats.html" title="next chapter">prance.util.formats</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prance-convert">
+<h1>prance.convert<a class="headerlink" href="#prance-convert" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-prance.convert"></span><p>Functionality for converting from Swagger/OpenAPI 2.0 to OpenAPI 3.0.0.</p>
+<p>The functions use <a class="reference external" href="https://mermade.org.uk/">https://mermade.org.uk/</a> APIs for conversion.</p>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="prance.convert.ConversionError">
+<em class="property">exception </em><code class="descclassname">prance.convert.</code><code class="descname">ConversionError</code><a class="reference internal" href="../_modules/prance/convert.html#ConversionError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.convert.ConversionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+<dl class="method">
+<dt id="prance.convert.ConversionError.with_traceback">
+<code class="descname">with_traceback</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#prance.convert.ConversionError.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="prance.convert.convert_spec">
+<code class="descclassname">prance.convert.</code><code class="descname">convert_spec</code><span class="sig-paren">(</span><em>parser_or_spec</em>, <em>parser_klass=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/convert.html#convert_spec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.convert.convert_spec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert an already parsed spec to OpenAPI 3.x.y.</p>
+<p>Returns a new parser instance with the parsed specs, if possible.</p>
+<p>The first parameter is either a parsed OpenAPI 2.0 spec, or a parser
+instance, i.e. something derived from prance.BaseParser. If a parser,
+the returned parser’s options are taken from this source parser.</p>
+<p>If the first parameter is a parsed spec, you must specify the class
+of parser to instanciate. You can specify other options as key word
+arguments. See the parser klass for details.</p>
+<p>Any key word arguments specified here also override options from a
+source parser.</p>
+<p>This parametrization may seem a little convoluted. What it does, though,
+is allow maximum flexibility. You can create parsed (but unvalidated)
+OpenAPI 3.0 specs even if you only have backends that support vresion 2.0.
+You can pass the source parser, and the lazy flag, and that’s it. If your
+version 2.0 specs were valid, there’s a good chance your converted 3.0
+specs are also valid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parser_or_spec</strong> (<em>mixed</em>) – A dict (spec) or an instance of BaseParser</li>
+<li><strong>parser_klass</strong> (<em>type</em>) – [optional] A parser class to instanciate for
+the result.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A parser instance.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="prance.html#prance.BaseParser" title="prance.BaseParser">BaseParser</a> or derived.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.convert.convert_str">
+<code class="descclassname">prance.convert.</code><code class="descname">convert_str</code><span class="sig-paren">(</span><em>spec_str</em>, <em>filename=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/convert.html#convert_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.convert.convert_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the serialized spec.</p>
+<p>We parse the spec first to ensure there is no parse error, then
+send it off to the API for conversion.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>spec_str</strong> (<em>str</em>) – The specifications as string.</li>
+<li><strong>filename</strong> (<em>str</em>) – [optional] Filename to determine the format from.</li>
+<li><strong>content_type</strong> (<em>str</em>) – [optional] Content type to determine the format
+from.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The converted spec and content type.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">tuple</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="prance.util.formats.html#prance.util.formats.ParseError" title="prance.util.formats.ParseError"><strong>ParseError</strong></a> – when parsing fails.</li>
+<li><a class="reference internal" href="#prance.convert.ConversionError" title="prance.convert.ConversionError"><strong>ConversionError</strong></a> – when conversion fails.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="prance.convert.convert_url">
+<code class="descclassname">prance.convert.</code><code class="descname">convert_url</code><span class="sig-paren">(</span><em>url</em>, <em>cache={}</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/prance/convert.html#convert_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#prance.convert.convert_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a URL, and try to convert it to OpenAPI 3.x.y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>url</strong> (<em>str</em>) – The URL to fetch.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The converted spec and content type.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">tuple</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="prance.util.formats.html#prance.util.formats.ParseError" title="prance.util.formats.ParseError"><strong>ParseError</strong></a> – when parsing fails.</li>
+<li><a class="reference internal" href="#prance.convert.ConversionError" title="prance.convert.ConversionError"><strong>ConversionError</strong></a> – when conversion fails.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2016-2017, Jens Finkhaeuser.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+    <a href="https://github.com/jfinkhaeuser/prance" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
