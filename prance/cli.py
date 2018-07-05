@@ -11,6 +11,44 @@ import click
 
 import prance
 
+class CustomResolvingParser(prance.BaseParser):
+  """The ResolvingParser extends BaseParser with resolving references."""
+
+  def __init__(self, url = None, spec_string = None, lazy = False, **kwargs):
+    """
+    See :py:class:`BaseParser`.
+
+    Resolves JSON pointers/references (i.e. '$ref' keys) before validating the
+    specs. The implication is that self.specfication is fully resolved, and
+    does not contain any references.
+    """
+    self.recursion_limit = kwargs.pop('recursion_limit', 0)
+
+    prance.BaseParser.__init__(
+        self,
+        url = url,
+        spec_string = spec_string,
+        lazy = lazy,
+        **kwargs
+    )
+
+  def _validate(self):
+    # We have a problem with the BaseParser's validate function: the
+    # jsonschema implementation underlying it does not accept relative
+    # path references, but the Swagger specs allow them:
+    # http://swagger.io/specification/#referenceObject
+    # We therefore use our own resolver first, and validate later.
+    from prance.util.resolver import RefResolver
+    def _custom_limit_handler(self, refstring):
+        return {'type': 'object',  'properties': {}}
+
+    resolver = RefResolver(self.specification, self.url, recursion_limit=self.recursion_limit, recursion_limit_handler=_custom_limit_handler)
+    resolver.resolve_references()
+    self.specification = resolver.specs
+
+    # Now validate - the BaseParser knows the specifics
+    prance.BaseParser._validate(self)
+
 
 def __write_to_file(filename, specs):  # noqa: N802
   """
@@ -38,8 +76,8 @@ def __parser_for_url(url, resolve, backend, strict):  # noqa: N802
   # Create parser to use
   if resolve:
     click.echo(' -> Resolving external references.')
-    return prance.ResolvingParser(url, lazy = True, backend = backend,
-            strict = strict), formatted
+    return CustomResolvingParser(url, lazy = True, backend = backend,
+            strict = strict, recursion_limit = 2), formatted
   else:
     click.echo(' -> Not resolving external references.')
     return prance.BaseParser(url, lazy = True, backend = backend,
